@@ -1,0 +1,30 @@
+# code to find longest sequence with max 2 unique integers
+
+a = [1,1,1,2,3,2,2,2,4,5,5,5,6,5,5,6,7]
+first = 0 
+second1 = True
+second = 0
+s = 0
+i = 0
+record = []
+while True:
+    if (i==len(a)):
+        break
+    if (a[i] == a[first]):
+        first = i
+        s = s + 1
+    else:
+        if (second1 or (a[i] == a[second])):
+            second1 = False
+            second = i
+            s = s + 1
+        else:
+            record.append([i-s,i-1])
+            s = max(first,second) - min(first,second) + 1
+            first = i - 1
+            second = i
+            
+    i = i + 1
+max_pair = max(record, key=lambda x: abs(x[0] - x[1]))
+
+print(max_pair,a[max_pair[0]],a[max_pair[1]])
